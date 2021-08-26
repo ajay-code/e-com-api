@@ -36,7 +36,8 @@ app.use(function (err: HttpError, req: Request, res: Response, next: Function) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  console.log(err);
+  res.json({ errors: err });
 });
 
 export default app;

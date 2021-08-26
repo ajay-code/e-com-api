@@ -9,7 +9,7 @@ import connectDB from "@db/connect";
 import http from "http";
 import { HttpError } from "http-errors";
 import app from "../app";
-import { DB_URL } from "@config/env";
+import { DB_URL, PORT } from "@config/env";
 
 const debug = debugServer("src:server");
 
@@ -17,7 +17,7 @@ const debug = debugServer("src:server");
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || "3000");
+var port = normalizePort(PORT);
 app.set("port", port);
 
 /**
