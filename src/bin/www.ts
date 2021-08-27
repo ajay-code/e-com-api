@@ -4,11 +4,12 @@
  * Module dependencies.
  */
 import "module-alias/register";
+import app from "../app";
+import "express-async-errors";
 import debugServer from "debug";
 import connectDB from "@db/connect";
 import http from "http";
 import { HttpError } from "http-errors";
-import app from "../app";
 import { DB_URL, PORT } from "@config/env";
 
 const debug = debugServer("src:server");
@@ -31,7 +32,9 @@ var server = http.createServer(app);
  */
 const start = async () => {
   try {
-    await connectDB(DB_URL);
+    if (DB_URL) {
+      await connectDB(DB_URL);
+    }
     /**
      * Listen on provided port, on all network interfaces.
      */
