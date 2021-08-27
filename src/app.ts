@@ -4,7 +4,6 @@ import createError, { HttpError } from "http-errors";
 import logger from "morgan";
 import path from "path";
 import indexRouter from "@routes/index";
-import usersRouter from "@routes/users";
 import apiV1Router from "@routes/api/v1";
 
 const app = express();
