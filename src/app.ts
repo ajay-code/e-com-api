@@ -5,6 +5,8 @@ import logger from "morgan";
 import path from "path";
 import indexRouter from "@routes/index";
 import apiV1Router from "@routes/api/v1";
+import errorHandler from "@middleware/errorHandler";
+import notFound from "@middleware/notFound";
 
 const app = express();
 
@@ -21,21 +23,10 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/api/v1", apiV1Router);
 
-// catch 404 and forward to error handler
-app.use((req: Request, res: Response, next: Function) => {
-  next(createError(404));
-});
+// catch 404
+app.use(notFound);
 
 // error handler
-app.use(function (err: HttpError, req: Request, res: Response, next: Function) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  console.log(err);
-  res.json({ errors: err });
-});
+app.use(errorHandler);
 
 export default app;
