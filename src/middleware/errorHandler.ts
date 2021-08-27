@@ -8,6 +8,8 @@ const errorHandler = (
   res: Response,
   next: Function
 ) => {
+  // @ts-ignore
+  console.log(err?.statusCodes);
   if (err instanceof CustomError) {
     return res
       .status(err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)

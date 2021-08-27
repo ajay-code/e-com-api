@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { NotFound } from "http-errors";
+import { NotFoundError } from "@errors/index";
 
 const notFound = (req: Request, res: Response, next: Function) => {
-  next(new NotFound("No route found"));
+  next(new NotFoundError("No route found"));
 };
 
 export default notFound;
