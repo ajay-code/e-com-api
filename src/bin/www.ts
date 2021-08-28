@@ -107,9 +107,9 @@ function onListening() {
 function onStart() {
   const addr = server.address();
   if (typeof addr === "string") {
-    console.log(`Example app listening at ${addr}`);
+    console.log(`app listening at ${addr}`);
   } else {
     const port = addr?.port;
-    console.log("Example app listening at http://localhost:%s", port);
+    console.log("app listening at http://localhost:%s", port);
   }
 }
