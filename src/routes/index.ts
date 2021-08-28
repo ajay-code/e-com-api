@@ -1,5 +1,4 @@
 import express from "express";
-import userRouter from "./users";
 
 const router = express.Router();
 
@@ -9,7 +8,5 @@ router.get("/", function (req, res, next) {
     msg: "welcome to express app",
   });
 });
-
-router.use("/users", userRouter);
 
 export default router;

@@ -17,7 +17,9 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+
+// serving static files
+app.use(express.static(path.join(__dirname, "../public")));
 
 app.use("/", indexRouter);
 app.use("/api/v1", apiV1Router);
