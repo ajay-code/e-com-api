@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 import "module-alias/register";
-import app from "../app";
 import "express-async-errors";
+import app from "../app";
 import debugServer from "debug";
 import connectDB from "@db/connect";
 import http from "http";
