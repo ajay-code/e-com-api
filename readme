@@ -1,1 +1,7 @@
-this is express starter repo with typescript
+##Typescript express api starter repo
+
+### Built With
+* Nodejs
+* Typescript
+* MongoDBs
+

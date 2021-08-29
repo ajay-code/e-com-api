@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node dist/bin/www.js",
-    "dev": "tsc-watch --onSuccess \"node ./dist/bin/www.js\"",
+    "start": "node dist/bin/server.js",
+    "dev": "tsc-watch --onSuccess \"node ./dist/bin/server.js\"",
     "build": "tsc"
   },
   "dependencies": {
