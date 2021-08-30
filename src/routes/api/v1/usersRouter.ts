@@ -1,4 +1,4 @@
-import { getAllUsers } from "@controllers/users";
+import { getAllUsers } from "@controllers/usersController";
 import express from "express";
 
 let router;
