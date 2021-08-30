@@ -1,6 +1,6 @@
 import express from "express";
 import { StatusCodes } from "http-status-codes";
-import userRouter from "./users";
+import userRouter from "./usersRouter";
 
 let router;
 const apiRouter = (router = express.Router());
