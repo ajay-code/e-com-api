@@ -10,7 +10,7 @@ import debugServer from "debug";
 import connectDB from "@db/connect";
 import http from "http";
 import { HttpError } from "http-errors";
-import { DB_URL, PORT } from "@config/env";
+import { MONGO_URI, PORT } from "@config/env";
 
 const debug = debugServer("src:server");
 
@@ -32,8 +32,8 @@ var server = http.createServer(app);
  */
 const start = async () => {
   try {
-    if (DB_URL) {
-      await connectDB(DB_URL);
+    if (MONGO_URI) {
+      await connectDB(MONGO_URI);
     }
     /**
      * Listen on provided port, on all network interfaces.
