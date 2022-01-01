@@ -6,6 +6,7 @@ import indexRouter from "@routes/index";
 import apiV1Router from "@routes/api/v1";
 import errorHandler from "@middleware/errorHandler";
 import notFound from "@middleware/notFound";
+import { JWT_SECRET } from "@config/env";
 
 const app = express();
 
@@ -15,8 +16,8 @@ app.set("view engine", "jade");
 
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+// app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser(JWT_SECRET));
 
 // serving static files
 app.use(express.static(path.join(__dirname, "../public")));
