@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "json api v1" });
 });
 
-router.use("/users", userRouter);
 router.use("/auth", authRoutes);
+router.use("/users", userRouter);
 
 export default apiRouter;
