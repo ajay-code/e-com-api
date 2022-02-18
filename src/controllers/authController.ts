@@ -5,20 +5,6 @@ import { StatusCodes } from "http-status-codes";
 import { attachCookieToResponse } from "@utils/index";
 import { UnauthenticatedError, BadRequestError } from "@errors/index";
 
-const getSubUser = ({
-  name,
-  _id,
-  email,
-  role,
-}: {
-  name: string;
-  _id: any;
-  email: string;
-  role: string;
-}) => {
-  return { name, _id, email, role };
-};
-
 export const register = async (req: Request, res: Response) => {
   const { email, name, password } = req.body;
 
