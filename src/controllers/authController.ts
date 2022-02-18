@@ -2,7 +2,7 @@ import CustomAPIError from "@errors/customAPIError";
 import User from "@models/User";
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { attachCookieToResponse } from "@utils/index";
+import { attachCookieToResponse, createTokenUser } from "@utils/index";
 import { UnauthenticatedError, BadRequestError } from "@errors/index";
 
 export const register = async (req: Request, res: Response) => {
@@ -20,11 +20,11 @@ export const register = async (req: Request, res: Response) => {
   // creating user
   const user = await User.create({ email, name, password, role });
 
-  const userToken = getSubUser(user);
+  const userToken = createTokenUser(user);
 
   attachCookieToResponse({ payload: userToken, res });
 
-  res.status(StatusCodes.CREATED).json({ user: getSubUser(user) });
+  res.status(StatusCodes.CREATED).json({ user: createTokenUser(user) });
 };
 
 export const login = async (req: Request, res: Response) => {
@@ -46,11 +46,11 @@ export const login = async (req: Request, res: Response) => {
     throw new UnauthenticatedError("Please provide valid password and email");
   }
 
-  const userToken = getSubUser(user);
+  const userToken = createTokenUser(user);
 
   attachCookieToResponse({ payload: userToken, res });
 
-  res.json({ user: getSubUser(user) });
+  res.json({ user: createTokenUser(user) });
 };
 
 export const logout = async (req: Request, res: Response) => {

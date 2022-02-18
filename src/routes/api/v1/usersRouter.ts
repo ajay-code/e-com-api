@@ -6,17 +6,23 @@ import {
   updateUserPassword,
 } from "@controllers/usersController";
 import express from "express";
+import {
+  authorizePermissions,
+  authenticateUser,
+} from "@middleware/authentication";
 
 let router;
 const userRouter = (router = express.Router());
 
 /* GET users listing. */
-router.route("/").get(getAllUsers);
+router
+  .route("/")
+  .get(authenticateUser, authorizePermissions("admin"), getAllUsers);
 
-router.route("/showMe").get(showCurrentUser);
-router.route("/updateUser").patch(updateUser);
-router.route("/updateUserPassword").patch(updateUserPassword);
+router.route("/showMe").get(authenticateUser, showCurrentUser);
+router.route("/updateUser").patch(authenticateUser, updateUser);
+router.route("/updateUserPassword").patch(authenticateUser, updateUserPassword);
 
-router.route("/:id").get(getSingleUser);
+router.route("/:id").get(authenticateUser, getSingleUser);
 
 export default userRouter;

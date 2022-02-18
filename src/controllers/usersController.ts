@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import User from "@models/User";
-import NotFoundError from "@errors/notFoundError";
+import { NotFoundError, BadRequestError } from "@errors/index";
 
 export const getAllUsers = async (req: Request, res: Response) => {
   const users = await User.find({ role: "user" }).select("-password -__v");
@@ -23,7 +23,7 @@ export const getSingleUser = async (
 };
 
 export const showCurrentUser = async (req: Request, res: Response) => {
-  res.send("show current user");
+  res.json({ user: req.user });
 };
 
 export const updateUser = async (req: Request, res: Response) => {
@@ -31,5 +31,25 @@ export const updateUser = async (req: Request, res: Response) => {
 };
 
 export const updateUserPassword = async (req: Request, res: Response) => {
-  res.json(req.body);
+  const _id = req.user?._id;
+  const { oldPassword, newPassword } = req.body;
+  if (!oldPassword || !newPassword) {
+    throw new BadRequestError("please provide both passwords");
+  }
+
+  const user = await User.findById(_id);
+  if (!user) {
+    throw new BadRequestError("user not found");
+  }
+
+  const isPasswordCorrect = await user.comparePassword(oldPassword);
+  if (!isPasswordCorrect) {
+    throw new BadRequestError("incorrect credential");
+  }
+
+  user.password = newPassword;
+
+  await user.save();
+
+  res.json({ msg: "success! password updated" });
 };

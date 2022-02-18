@@ -13,6 +13,7 @@ const errorHandler = (
   res: Response,
   next: Function
 ) => {
+  // console.log(err);
   let customError: CustomErrorType = {
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
     msg: err.message || "Something went wrong try again later",

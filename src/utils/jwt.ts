@@ -10,7 +10,7 @@ export const attachCookieToResponse = ({
   payload,
   res,
 }: {
-  payload: any;
+  payload: User;
   res: Response;
 }) => {
   const token = creatJWT({ payload });
