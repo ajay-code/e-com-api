@@ -22,7 +22,7 @@ const errorHandler = (
   if (err.name === "ValidationError") {
     customError.msg = Object.values(err.errors)
       .map((item: any) => item.message)
-      .join(",");
+      .join(", ");
     customError.statusCode = StatusCodes.BAD_REQUEST;
   }
 
@@ -39,9 +39,7 @@ const errorHandler = (
   }
 
   if (NODE_ENV === "development") {
-    return res
-      .status(customError.statusCode)
-      .json({ err, prodError: customError });
+    return res.status(customError.statusCode).json({ error: customError, err });
   }
   return res.status(customError.statusCode).json({ msg: customError.msg });
 };

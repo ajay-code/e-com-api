@@ -1,7 +1,8 @@
 import express from "express";
 import { StatusCodes } from "http-status-codes";
-import authRoutes from "./authRoutes";
+import authRoutes from "./authRouter";
 import userRouter from "./usersRouter";
+import productRouter from "./productsRouter";
 
 let router;
 const apiRouter = (router = express.Router());
@@ -13,5 +14,6 @@ router.get("/", (req, res) => {
 
 router.use("/auth", authRoutes);
 router.use("/users", userRouter);
+router.use("/products", productRouter);
 
 export default apiRouter;
