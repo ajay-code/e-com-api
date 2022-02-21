@@ -1,3 +1,8 @@
+import express from "express";
+import {
+  authenticateUser,
+  authorizePermissions,
+} from "@middleware/authentication";
 import {
   createProduct,
   deleteProduct,
@@ -6,11 +11,7 @@ import {
   updateProduct,
   uploadImage,
 } from "@controllers/productController";
-import {
-  authenticateUser,
-  authorizePermissions,
-} from "@middleware/authentication";
-import express from "express";
+import { getSingleProductReviews } from "@controllers/reviewController";
 
 let router;
 const productRouter = (router = express.Router());
@@ -31,5 +32,7 @@ router
   .all([authenticateUser, authorizePermissions("admin")])
   .patch(updateProduct)
   .delete(deleteProduct);
+
+router.route("/:id/reviews").get(getSingleProductReviews);
 
 export default productRouter;

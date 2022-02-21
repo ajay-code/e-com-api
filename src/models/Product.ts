@@ -12,6 +12,7 @@ interface IProduct {
   freeShipping: boolean;
   inventory: number;
   averageRatings: number;
+  numOfReviews: number;
   user: Types.ObjectId;
 }
 
@@ -76,14 +77,29 @@ const ProductSchema = new mongoose.Schema<IProduct>(
       type: Number,
       default: 0,
     },
+    numOfReviews: {
+      type: Number,
+      default: 0,
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
+
+ProductSchema.virtual("reviews", {
+  ref: "Review",
+  localField: "_id",
+  foreignField: "product",
+  justOne: false,
+});
+
+ProductSchema.pre("remove", async function () {
+  await this.model("Review").deleteMany({ product: this._id });
+});
 
 export default mongoose.model<IProductDocument, IProductModel>(
   "Product",

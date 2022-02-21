@@ -7,6 +7,7 @@ import apiV1Router from "@routes/api/v1";
 import errorHandler from "@middleware/errorHandler";
 import notFound from "@middleware/notFound";
 import { JWT_SECRET } from "@config/env";
+import fileUpload from "express-fileupload";
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(cookieParser(JWT_SECRET));
 // serving static files
 app.use(express.static(path.join(__dirname, "../public")));
 
+app.use(fileUpload());
 app.use("/", indexRouter);
 app.use("/api/v1", apiV1Router);
 
