@@ -1,3 +1,4 @@
+declare module "xss-clean";
 namespace Express {
   export interface Request {
     user?: User;

@@ -11,7 +11,7 @@ interface IProduct {
   featured: boolean;
   freeShipping: boolean;
   inventory: number;
-  averageRatings: number;
+  averageRating: number;
   numOfReviews: number;
   user: Types.ObjectId;
 }
@@ -73,7 +73,7 @@ const ProductSchema = new mongoose.Schema<IProduct>(
       required: true,
       default: 15,
     },
-    averageRatings: {
+    averageRating: {
       type: Number,
       default: 0,
     },

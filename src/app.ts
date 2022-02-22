@@ -8,14 +8,31 @@ import errorHandler from "@middleware/errorHandler";
 import notFound from "@middleware/notFound";
 import { JWT_SECRET } from "@config/env";
 import fileUpload from "express-fileupload";
+import rateLimiter from "express-rate-limit";
+import mongoSanitize from "express-mongo-sanitize";
+import helmet from "helmet";
+import xss from "xss-clean";
+import cors from "cors";
 
 const app = express();
 
+// security middleware
+app.use(
+  rateLimiter({
+    windowMs: 15 * 60 * 1000,
+    max: 60,
+  })
+);
+app.use(helmet());
+app.use(cors());
+app.use(xss());
+app.use(mongoSanitize());
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
+// app.set("view engine", "jade");
 
-app.use(logger("dev"));
+app.use(logger("tiny"));
 app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(JWT_SECRET));
